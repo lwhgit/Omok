@@ -5,6 +5,7 @@ class BoardViewer:
     length = 0
     root = None
     canvas = None
+    frame = None
     
     def __init__(self, size = 40, length = 15):
         self.size = size

@@ -8,7 +8,7 @@ class OmokBoard:
         self.map = [[0] * length for i in range(length)]
         
     def putStone(self, x, y, type):
-        if self.__isImossable(x, y, type):
+        if self.isImpossable(x, y, type):
             return -1
         
         self.map[x][y] = type
@@ -18,9 +18,12 @@ class OmokBoard:
             return type
         return 0
         
-    def __isImossable(self, x, y, type):
+    def isImpossable(self, x, y, type):
         dx = [0, 1, 1, 1];
         dy = [1, 1, 0, -1];
+        
+        if (x < 0) or (x >= self.length) or (y < 0) or (y >= self.length) or self.map[x][y] != 0:
+            return True
         
         if type == 1:
             for axis in range(4):
@@ -36,6 +39,8 @@ class OmokBoard:
                         (acount == 3 and rcount == 2) or
                         (acount == 3 and rcount == 3)):
                         return True
+                        
+        return False
     
     def __check(self, x, y, type):
         dx = [0, 1, 1, 1];
