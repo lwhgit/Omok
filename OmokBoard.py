@@ -13,7 +13,7 @@ class OmokBoard:
         
         self.map[x][y] = type
         if self.viewer != None:
-            self.viewer.putStone(x, y, type)
+            self.viewer.putStone(x + 1, y + 1, type)
         if self.__check(x, y, type):
             return type
         return 0

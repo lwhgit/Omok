@@ -37,3 +37,6 @@ class Omok:
     def getMap(self):
         return self.omokBoard.map
         
+    def showMap(self):
+        self.omokBoard.showMap()
+        

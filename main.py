@@ -3,9 +3,9 @@ import time
 
 def main():
     omok = Omok.Omok(40, 15)
-    print(omok.putStone(5, 5, 1))
+    print(omok.putStone(0, 5, 1))
     time.sleep(0.5)
-    print(omok.putStone(5, 6, 1))
+    print(omok.putStone(1, 6, 1))
     time.sleep(0.5)
     print(omok.putStone(5, 7, 1))
     time.sleep(0.5)
@@ -20,5 +20,7 @@ def main():
     print(omok.isPossable(5, 5 ,1))
     print(omok.isPossable(5, 6 ,1))
     print(omok.isPossable(5, 10 ,1))
+    print(omok.getMap())
+    omok.showMap()
     
 main()
