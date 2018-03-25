@@ -27,7 +27,7 @@ class OmokBoard:
         
         if type == 1:
             for axis in range(4):
-                for rotation in range(axis + 1, axis + 3):
+                for rotation in range(axis + 1, axis + 2):
                         
                     if rotation > 3:
                         rotation -= 3
@@ -38,6 +38,7 @@ class OmokBoard:
                     if ((acount == 2 and rcount == 3) or
                         (acount == 3 and rcount == 2) or
                         (acount == 3 and rcount == 3)):
+                        print(dx[axis], dy[rotation], acount, rcount)
                         return True
                         
         return False
@@ -62,10 +63,13 @@ class OmokBoard:
             if 0 <= tx and tx < self.length and 0 <= ty and ty < self.length:
                 if self.map[tx][ty] == type:
                     count += 1
+                else:
+                    break
             else:
                 break
                 
         i = 0
+        
         while True:
             i += 1
             
@@ -77,6 +81,7 @@ class OmokBoard:
                     count += 1
             else:
                 break
+                
         return count
                     
     def setViewer(self, viewer):

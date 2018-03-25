@@ -1,9 +1,14 @@
 import Omok
 import time
 
+omok = None
+
 def main():
-    omok = Omok.Omok(40, 15)
-    print(omok.putStone(0, 5, 1))
+    global omok
+    omok = Omok.Omok(50, 15)
+    omok.setEvent("<Button-1>", black)
+    omok.setEvent("<Button-3>", white)
+    '''print(omok.putStone(0, 5, 1))
     time.sleep(0.5)
     print(omok.putStone(1, 6, 1))
     time.sleep(0.5)
@@ -17,10 +22,15 @@ def main():
     time.sleep(0.5)
     print(omok.putStone(5, 8, 1))
     time.sleep(0.5)
-    print(omok.isPossable(5, 5 ,1))
-    print(omok.isPossable(5, 6 ,1))
-    print(omok.isPossable(5, 10 ,1))
+    print(omok.putStone(9, 8, 1))
+    time.sleep(0.5)
     print(omok.getMap())
-    omok.showMap()
+    omok.showMap()'''
     
+def black(event):
+    print(omok.putStone(int(event.x / 50 - 0.5), int(event.y / 50 - 0.5), 1))
+    
+def white(event):
+    print(omok.putStone(int(event.x / 50 - 0.5), int(event.y / 50 - 0.5), 2))
+
 main()

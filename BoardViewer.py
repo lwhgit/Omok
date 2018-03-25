@@ -18,7 +18,9 @@ class BoardViewer:
         
     def __initBoard(self):
         dotSize = self.size / 10
-        self.canvas = Canvas(self.root, width = self.size * (self.length + 1), height = self.size * (self.length + 1), bg = "#FFDE7D")
+        self.frame = Frame(self.root)
+        self.frame.pack()
+        self.canvas = Canvas(self.frame, width = self.size * (self.length + 1), height = self.size * (self.length + 1), bg = "#FFDE7D")
         for i in range(0, self.length):
             self.canvas.create_line(self.size,                  self.size + self.size * i,  self.size * self.length,    self.size + self.size * i,  fill = "black", tag = "line")
             self.canvas.create_line(self.size + self.size * i,  self.size * self.length,    self.size + self.size * i,  self.size,                  fill = "black", tag = "line")
@@ -48,4 +50,7 @@ class BoardViewer:
             
     def show(self):
         self.root.mainloop()
+        
+    def setEvent(self, eventName, callback):
+        self.canvas.bind(eventName, callback)
         

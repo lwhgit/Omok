@@ -40,3 +40,6 @@ class Omok:
     def showMap(self):
         self.omokBoard.showMap()
         
+    def setEvent(self, eventName, callback):
+        self.boardViewer.setEvent(eventName, callback)
+        
