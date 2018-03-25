@@ -29,7 +29,7 @@ class Omok:
         self.omokBoard.setViewer(self.boardViewer)
         
     def putStone(self, x, y, type):
-        self.omokBoard.putStone(x, y, type)
+        return self.omokBoard.putStone(x, y, type)
         
     def isPossable(self, x, y, type):
         return not (self.omokBoard.isImpossable(x, y, type))
