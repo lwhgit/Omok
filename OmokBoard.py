@@ -68,8 +68,14 @@ class OmokBoard:
                     break
             else:
                 break
-                
-        side1 = self.map[tx + dx][ty + dy]
+        
+        tx += dx
+        ty += dy
+        if 0 <= tx and tx < self.length and 0 <= ty and ty < self.length:
+            side1 = self.map[tx][ty]
+        else:
+            side1 = 0
+            
         i = 0
         
         while True:
@@ -85,9 +91,13 @@ class OmokBoard:
                     break
             else:
                 break
-                
-        side2 = self.map[tx - dx][ty - dy]
         
+        tx -= dx
+        ty -= dy
+        if 0 <= tx and tx < self.length and 0 <= ty and ty < self.length:
+            side2 = self.map[tx][ty]
+        else:
+            side2 = 0
                 
         return (count, side1 + side2)
                     
