@@ -27,7 +27,7 @@ class OmokBoard:
         
         if type == 1:
             for axis in range(4):
-                for rotation in range(axis + 1, axis + 2):
+                for rotation in range(axis + 1, axis + 3):
                         
                     if rotation > 3:
                         rotation -= 3
@@ -35,10 +35,9 @@ class OmokBoard:
                     acount = self.__getCount(x, y, dx[axis], dy[axis], type)
                     rcount = self.__getCount(x, y, dx[rotation], dy[rotation], type)
                     
-                    if ((acount == 2 and rcount == 3) or
-                        (acount == 3 and rcount == 2) or
-                        (acount == 3 and rcount == 3)):
-                        print(dx[axis], dy[rotation], acount, rcount)
+                    if ((acount == (2, 0) and rcount == (3, 0)) or
+                        (acount == (3, 0) and rcount == (2, 0)) or
+                        (acount == (3, 0) and rcount == (3, 0))):
                         return True
                         
         return False
@@ -47,10 +46,12 @@ class OmokBoard:
         dx = [0, 1, 1, 1];
         dy = [1, 1, 0, -1];
         for i in range(0, 4):
-            if self.__getCount(x, y, dx[i], dy[i], type) == 4:
+            if self.__getCount(x, y, dx[i], dy[i], type)[0] == 4:
                 return True
             
     def __getCount(self, x, y, dx, dy, type):
+        side1 = 0
+        side2 = 0
         count = 0
         i = 0
         
@@ -68,6 +69,7 @@ class OmokBoard:
             else:
                 break
                 
+        side1 = self.map[tx + dx][ty + dy]
         i = 0
         
         while True:
@@ -79,10 +81,15 @@ class OmokBoard:
             if 0 <= tx and tx < self.length and 0 <= ty and ty < self.length:
                 if self.map[tx][ty] == type:
                     count += 1
+                else:
+                    break
             else:
                 break
                 
-        return count
+        side2 = self.map[tx - dx][ty - dy]
+        
+                
+        return (count, side1 + side2)
                     
     def setViewer(self, viewer):
         self.viewer = viewer

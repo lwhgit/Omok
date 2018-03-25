@@ -13,6 +13,7 @@ class BoardViewer:
         self.root = Tk()
         self.root.title("Omok")
         self.root.geometry(str(self.size * (self.length + 1)) + "x" + str(self.size * (self.length + 1)))
+        self.root.resizable(0, 0)
         self.__initBoard()
      
         
