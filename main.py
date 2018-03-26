@@ -1,11 +1,11 @@
-import Omok
+from Omok.Omok import *
 import time
 
 omok = None
-
+a= 30
 def main():
     global omok
-    omok = Omok.Omok(50, 15)
+    omok = Omok(a, 19)
     omok.setEvent("<Button-1>", black)
     omok.setEvent("<Button-2>", func)
     omok.setEvent("<Button-3>", white)
@@ -29,11 +29,11 @@ def main():
     omok.showMap()'''
     
 def black(event):
-    print(int(event.x / 50 - 0.5), int(event.y / 50 - 0.5))
-    print(omok.putStone(int(event.x / 50 - 0.5), int(event.y / 50 - 0.5), 1))
+    print(int(event.x / a- 0.5), int(event.y / a- 0.5))
+    print(omok.putStone(int(event.x / a- 0.5), int(event.y /a - 0.5), 1))
     
 def white(event):
-    print(omok.putStone(int(event.x / 50 - 0.5), int(event.y / 50 - 0.5), 2))
+    print(omok.putStone(int(event.x / a- 0.5), int(event.y /a- 0.5), 2))
     
 def func(event):
     omok.showMap()
