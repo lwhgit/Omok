@@ -8,11 +8,12 @@ class Omok:
     omokBoard = None
     boardViewer = None
 
-    def __init__(self, size = 40, length = 15):
+    def __init__(self, length = 15, size = 40):
         self.size = size
         self.length = length
         self.initOmokBoard()
-        self.initBoardViewer()
+        if size != -1:
+            self.initBoardViewer()
         
     def __thread(self):
         self.boardViewer = BoardViewer(self.size, self.length)
@@ -41,5 +42,6 @@ class Omok:
         self.omokBoard.showMap()
         
     def setEvent(self, eventName, callback):
-        self.boardViewer.setEvent(eventName, callback)
+        if self.boardViewer != None:
+            self.boardViewer.setEvent(eventName, callback)
         

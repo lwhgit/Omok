@@ -2,10 +2,10 @@ from Omok.Omok import *
 import time
 
 omok = None
-a= 30
+a = 30
 def main():
     global omok
-    omok = Omok(a, 19)
+    omok = Omok(19, a)
     omok.setEvent("<Button-1>", black)
     omok.setEvent("<Button-2>", func)
     omok.setEvent("<Button-3>", white)
