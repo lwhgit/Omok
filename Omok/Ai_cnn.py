@@ -35,7 +35,7 @@ nameFile = "fileDeep.ckpt.index"
 #-------------------------------#
 
 def MakeConv(image, inChannelNumber, outChannelNumber, sizeFilter, nStddev):
-    w_conv = tf.Variable(tf.random_normal([sizeFilter, sizeFilter, inChannelNumber, outChannerlNumber, stddev = nStddev))
+    w_conv = tf.Variable(tf.random_normal([sizeFilter, sizeFilter, inChannelNumber, outChannerlNumber], stddev = nStddev))
     h_conv = tf.nn.conv2d(image, w_conv, strides = [1, 1, 1, 1], padding = 'SAME')
     b_conv = tf.Variable(tf.constant(0.1, shape = [outChannelNumber]))
     R_conv = tf.nn.relu(h_conv + b_conv)
