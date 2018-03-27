@@ -1,6 +1,6 @@
 # Omok   
 
-### <main>.py
+### .py
     from Omok.Omok import *
     from AI import Ai_radnom
     
@@ -8,7 +8,7 @@
     
 또는   
 
-### <main>.py
+### .py
     from Omok.Omok import *
     from AI import Ai_radnom
     
