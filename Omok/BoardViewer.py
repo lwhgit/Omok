@@ -14,14 +14,19 @@ class BoardViewer:
         self.root.title("Omok")
         self.root.geometry(str(self.size * (self.length + 1)) + "x" + str(self.size * (self.length + 1)))
         self.root.resizable(0, 0)
+        self.frame = Frame(self.root)
+        self.frame.pack()
         self.__initBoard()
      
         
     def __initBoard(self):
         dotSize = self.size / 10
-        self.frame = Frame(self.root)
-        self.frame.pack()
-        self.canvas = Canvas(self.frame, width = self.size * (self.length + 1), height = self.size * (self.length + 1), bg = "#FFDE7D")
+        
+        if self.canvas == None:
+            self.canvas = Canvas(self.frame, width = self.size * (self.length + 1), height = self.size * (self.length + 1), bg = "#FFDE7D")
+        else:
+            self.canvas.create_rectangle(0, 0, self.size * (self.length + 2), self.size * (self.length + 2), fill = "#FFDE7D")
+            
         for i in range(0, self.length):
             self.canvas.create_line(self.size,                  self.size + self.size * i,  self.size * self.length,    self.size + self.size * i,  fill = "black", tag = "line")
             self.canvas.create_line(self.size + self.size * i,  self.size * self.length,    self.size + self.size * i,  self.size,                  fill = "black", tag = "line")
@@ -54,4 +59,7 @@ class BoardViewer:
         
     def setEvent(self, eventName, callback):
         self.canvas.bind(eventName, callback)
+        
+    def reset(self):
+        self.__initBoard()
         

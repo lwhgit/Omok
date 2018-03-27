@@ -1,4 +1,4 @@
-from Omok.Omok import *
+from Omok.Omok import Omok
 import time
 
 omok = None
@@ -9,24 +9,7 @@ def main():
     omok.setEvent("<Button-1>", black)
     omok.setEvent("<Button-2>", func)
     omok.setEvent("<Button-3>", white)
-    '''print(omok.putStone(0, 5, 1))
-    time.sleep(0.5)
-    print(omok.putStone(1, 6, 1))
-    time.sleep(0.5)
-    print(omok.putStone(5, 7, 1))
-    time.sleep(0.5)
-    print(omok.putStone(6, 8, 1))
-    time.sleep(0.5)
-    print(omok.putStone(7, 8, 1))
-    time.sleep(0.5)
-    print(omok.putStone(8, 8, 1))
-    time.sleep(0.5)
-    print(omok.putStone(5, 8, 1))
-    time.sleep(0.5)
-    print(omok.putStone(9, 8, 1))
-    time.sleep(0.5)
-    print(omok.getMap())
-    omok.showMap()'''
+    omok.setEvent("<Key>", key)
     
 def black(event):
     print(int(event.x / a- 0.5), int(event.y / a- 0.5))
@@ -36,6 +19,22 @@ def white(event):
     print(omok.putStone(int(event.x / a- 0.5), int(event.y /a- 0.5), 2))
     
 def func(event):
-    omok.showMap()
+    print("reset")
+    arr = omok.get3DArray()
+    showArr(arr[0])
+    showArr(arr[1])
+    showArr(arr[2])
+    omok.reset()
+    
+def key(event):
+    print(event)
+    
+def showArr(arr):
+    s = ""
+    for y in range(0, 15):
+        for x in range(0, 15):
+            s += str("{0:>4d}".format(arr[x][y]))
+        s += "\n"
+    print(s)
 
 main()

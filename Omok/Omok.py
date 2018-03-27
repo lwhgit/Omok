@@ -8,7 +8,7 @@ class Omok:
     omokBoard = None
     boardViewer = None
 
-    def __init__(self, length = 15, size = 40):
+    def __init__(self, length = 15, size = -1):
         self.size = size
         self.length = length
         self.initOmokBoard()
@@ -44,4 +44,11 @@ class Omok:
     def setEvent(self, eventName, callback):
         if self.boardViewer != None:
             self.boardViewer.setEvent(eventName, callback)
+            
+    def reset(self):
+        self.omokBoard.reset()
+        self.boardViewer.reset()
+        
+    def get3DArray(self):
+        return self.omokBoard.get3DArray()
         

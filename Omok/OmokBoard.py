@@ -5,7 +5,7 @@ class OmokBoard:
     
     def __init__(self, length = 15):
         self.length = length
-        self.map = [[0] * length for i in range(length)]
+        self.map = [[0] * self.length for i in range(self.length)]
         
     def putStone(self, x, y, type):
         if self.isImpossable(x, y, type):
@@ -111,3 +111,14 @@ class OmokBoard:
                 s += str("{0:>4d}".format(self.map[x][y]))
             s += "\n"
         print(s)
+        
+    def reset(self):
+        self.map = [[0] * self.length for i in range(self.length)]
+        
+    def get3DArray(self):
+        arr = [[[0] * self.length for i in range(self.length)] for j in range(3)]
+        for i in range(3):
+            for x in range(self.length):
+                for y in range(self.length):
+                    arr[i][x][y] = int(self.map[x][y] == i)
+        return arr
