@@ -31,6 +31,12 @@ learningRate = 0.0001
 #           모델 설정           #
 #-------------------------------#
 
+def MakeConv(image, inChannelNumber, outChannelNumber, sizeFilter, nStddev):
+    w_conv = tf.Variable(tf.random_normal([sizeFilter, sizeFilter, inChannelNumber, outChannerlNumber], stddev = nStddev))
+    h_conv = tf.nn.conv2d(image, w_conv, strides = [1, 1, 1, 1], padding = 'SAME')
+    
+    
+
 #Conv 1
 nFilter1 = 32
 sizeFilter1 = 6
