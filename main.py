@@ -5,7 +5,7 @@ omok = None
 a = 30
 def main():
     global omok
-    omok = Omok(19, a)
+    omok = Omok(15, a)
     omok.setEvent("<Button-1>", black)
     omok.setEvent("<Button-2>", func)
     omok.setEvent("<Button-3>", white)
