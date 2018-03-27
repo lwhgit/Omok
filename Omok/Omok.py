@@ -1,5 +1,5 @@
-from .OmokBoard import *
-from .BoardViewer import *
+from OmokBoard import *
+from BoardViewer import *
 import threading
 
 class Omok:
