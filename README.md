@@ -1,6 +1,6 @@
 # Omok   
 
-    form Omok.Omok import *
+    from Omok.Omok import *
     
     omok = Omok(size, length)
     
