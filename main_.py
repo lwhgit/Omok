@@ -1,7 +1,7 @@
-import Omok
-import Ai_random
+from Omok.Omok import Omok
+from AI.Ai_random import *
 import time
-import Ai_cnn
+from AI.Ai_cnn import *
 
 #상수 선언
 SIZE = 40
@@ -11,9 +11,9 @@ BLACK = 1
 WHITE = 2
 
 def main():
-    omok = Omok.Omok(LENGTH, SIZE)
-    ai1 = Ai_random.Ai_random(omok, LENGTH, BLACK)
-    ai2 = Ai_random.Ai_random(omok, LENGTH, WHITE)
+    omok = Omok.Omok.Omok(LENGTH, SIZE)
+    ai1 = Ai_random(omok, LENGTH, BLACK)
+    ai2 = Ai_random(omok, LENGTH, WHITE)
     while(True):
         a1 = ai1.put()
         if (a1 == 0):
