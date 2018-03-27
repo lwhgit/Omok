@@ -1,5 +1,5 @@
 from Omok.Omok import *
-from Omok import Ai_random
+from AI import Ai_random
 import time
 
 

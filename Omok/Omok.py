@@ -11,23 +11,25 @@ class Omok:
     def __init__(self, length = 15, size = -1):
         self.size = size
         self.length = length
-        self.initOmokBoard()
         if size != -1:
             self.initBoardViewer()
+        self.initOmokBoard()
         
     def __thread(self):
-        self.boardViewer = BoardViewer(self.size, self.length)
+        self.boardViewer = BoardViewer(self.length, self.size)
         self.boardViewer.show()
 
-    def initOmokBoard(self):
+    def initBoardViewer(self):
         threading.Thread(target = self.__thread).start()
         
-    def initBoardViewer(self):
+    def initOmokBoard(self):
         self.omokBoard = OmokBoard(self.length)
-        while True:
-            if self.boardViewer != None:
-                break
-        self.omokBoard.setViewer(self.boardViewer)
+        if self.size != -1:
+            while True:
+                if self.boardViewer != None:
+                    break
+                    
+            self.omokBoard.setViewer(self.boardViewer)
         
     def putStone(self, x, y, type):
         return self.omokBoard.putStone(x, y, type)

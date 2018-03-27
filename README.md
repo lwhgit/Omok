@@ -1,10 +1,6 @@
 # Omok   
 
-    from Omok.Omok import Omok
+    form Omok.Omok import *
     
-    omok = Omok(length, size)
- 또는   
- 
-    from Omok.Omok import Omok
+    omok = Omok(size, length)
     
-    omok = Omok(length)
