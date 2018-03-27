@@ -9,6 +9,9 @@ def main():
     omok.setEvent("<Button-1>", black)
     omok.setEvent("<Button-2>", func)
     omok.setEvent("<Button-3>", white)
+    
+    while True:
+        eval(input())
     #omok.setEvent("<r>", key)
     
 def black(event):
@@ -24,10 +27,7 @@ def func(event):
     showArr(arr[0])
     showArr(arr[1])
     showArr(arr[2])
-    
-def key(event):
-    print(event)
-    
+
 def showArr(arr):
     s = ""
     for y in range(0, 15):
