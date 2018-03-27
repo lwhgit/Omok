@@ -93,8 +93,8 @@ class Ai_cnn:
     def trainModel(self, Ai):
         omok = Omok.Omok(15)
         countWin = 0
-        for i in xrange(100):
-            omok.reset()
+        for i in range(0, 100):
+            #omok.reset()
             err = 0
             overGame = False
              
