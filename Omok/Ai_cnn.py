@@ -3,6 +3,7 @@ import os
 import random
 import math
 import numpy as np
+from Omok.Omok import *
 
 #AVX 경고 무시
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -27,6 +28,7 @@ dropoutRate = 0.8   #Dropout되는 정도
 dropoutHiddonRate = 0.5 #FC에서 Dropout되는 정도
 learningRate = 0.0001
 nHidden = 625
+nameFile = "fileDeep.ckpt.index"
 
 #-------------------------------#
 #           모델 설정           #
@@ -89,11 +91,37 @@ optimizer = tf.train.AdamOptimizer(learningRate).minimize(cost)
 
 #---------
 class Ai_cnn:
-    def put(self, sess, state):
+    def __init__(self, type):
+        self.myType = type
+        if (type == BLACK): self.enemyType = WHITE
+        else: self.enemyType = BLACK
+            
+        sess = tf.Session()
+        sess.run(tf.global_variables_initializer())
+        
+        saver = tf.train.Saver()
+        
+        if(os.path.isfile(os.getcwd() + nameFile) == True):
+            saver.restore(sess, os.getcwd() + nameFile)
+            print("Model is loaded")
+            
+    def trainModel(self, Ai):
+        omok = Omok(15)
+        countWin = 0
+        for i in xrange(100):
+            omok.reset()
+            err = 0
+            overGame = false
+            
+        
+            
+    def Put(self, sess, omok):
         q = sess.run(output_layer, feed_dict = {X: state, dropoutRate:0.8, dropoutHiddonRate:0.5})
         while(True):
             action = q.argmax()
             if (state[action] == NONE):
-                return action
+                return action #액션을리턴하는게아니라직접놓아야함
             else:
                 q[0, action] = -99999
+        nextState = omok.getState()
+        return nextState
