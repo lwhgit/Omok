@@ -4,4 +4,5 @@
     
     omok = Omok(length, size)
  또는   
+ 
     omok = Omok(length)
