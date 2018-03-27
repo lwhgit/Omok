@@ -7,7 +7,7 @@ class BoardViewer:
     canvas = None
     frame = None
     
-    def __init__(self, size = 40, length = 15):
+    def __init__(self, length = 15, size = 40):
         self.size = size
         self.length = length
         self.root = Tk()
@@ -17,7 +17,6 @@ class BoardViewer:
         self.frame = Frame(self.root)
         self.frame.pack()
         self.__initBoard()
-     
         
     def __initBoard(self):
         dotSize = self.size / 10

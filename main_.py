@@ -1,17 +1,17 @@
-from Omok.Omok import *
-from Omok import Ai_random
+import Omok
+import Ai_random
 import time
-
+import Ai_cnn
 
 #상수 선언
-SIZE = 15
-LENGTH = 40
+SIZE = 40
+LENGTH = 15
 
 BLACK = 1
 WHITE = 2
 
 def main():
-    omok = Omok(SIZE, LENGTH)
+    omok = Omok.Omok(LENGTH, SIZE)
     ai1 = Ai_random.Ai_random(omok, LENGTH, BLACK)
     ai2 = Ai_random.Ai_random(omok, LENGTH, WHITE)
     while(True):
@@ -33,4 +33,7 @@ def main():
         else:
             print("WHITE WIN")
             break
+    '''ai1 = Ai_random.Ai_random(omok, LENGTH, WHITE)
+    ai2 = Ai_cnn.Ai_cnn(BLACK)
+    ai2.trainModel(ai1)'''
 main()
