@@ -3,7 +3,7 @@ import os
 import random
 import math
 import numpy as np
-from Omok.Omok import *
+import Omok
 
 #AVX 경고 무시
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -35,37 +35,24 @@ nameFile = "fileDeep.ckpt.index"
 #-------------------------------#
 
 def MakeConv(image, inChannelNumber, outChannelNumber, sizeFilter, nStddev):
-    w_conv = tf.Variable(tf.random_normal([sizeFilter, sizeFilter, inChannelNumber, outChannerlNumber], stddev = nStddev))
+    w_conv = tf.Variable(tf.random_normal([sizeFilter, sizeFilter, inChannelNumber, outChannerlNumber, stddev = nStddev))
     h_conv = tf.nn.conv2d(image, w_conv, strides = [1, 1, 1, 1], padding = 'SAME')
     b_conv = tf.Variable(tf.constant(0.1, shape = [outChannelNumber]))
     R_conv = tf.nn.relu(h_conv + b_conv)
     return tf.nn.max_pool(R_conv, ksize = [1, 2, 2, 1], strides = [1, 2, 2, 1], padding = 'SAME')
     
-    
-    
-
 #Conv 1
 nFilter1 = 32
 sizeFilter1 = 6
 channelFilter1 = 3
 X = tf.placeholder(tf.float32, [None, nState])
 xImage = tf.reshape(X, [-1, gridSize, gridSize, channelFilter1])
-'''w_conv1 = tf.Variable(tf.random_normal([sizeFilter1, sizeFilter1, channelFilter1, nFilter1], stddev = 0.01))
-h_conv1 = tf.nn.conv2d(xImage, w_conv1, strides = [1, 1, 1, 1], padding = 'SAME')
-b_conv1 = tf.Variable(tf.constant(0.1, shape = [nFilter1]))
-R_conv1 = tf.nn.relu(h_conv1 + b_conv1)
-P_conv1 = tf.nn.max_pool(R_conv1, ksize = [1, 2, 2, 1], strides = [1, 2, 2, 1], padding = 'SAME')'''
 P_conv1 = MakeConv(xImage, channelFilter1, nFilter1, sizeFilter1, 0.01)
 P_conv1 = tf.nn.dropout(P_conv1, dropoutRate)
 
 #Conv 2
 nFilter2 = 64
-sizeFliter2 = 6
-'''w_conv2 = tf.Variable(tf.random_normal([sizeFliter2, sizeFliter2, nFilter1, nFilter2], stddev = 0.01))
-h_conv2 = tf.nn.conv2d(P_conv1, w_conv2, strides = [1, 1, 1, 1], padding = 'SAME')
-b_conv2 = tf.Variable(tf.constant(0.1, shape = [nFilter2]))
-R_conv2 = tf.nn.relu(h_conv2 + b_conv2)
-P_conv2 = tf.nn.max_pool(R_conv2, ksize = [1, 2, 2, 1], strides = [1, 2, 2, 1], padding = 'SAME')'''
+sizeFilter2 = 6
 P_conv2 = MakeConv(P_conv1, nFilter1, nFilter2, sizeFilter2, 0.01)
 
 #Fully connected net
@@ -88,8 +75,6 @@ cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(output_layer, Y))
 optimizer = tf.train.AdamOptimizer(learningRate).minimize(cost)
 #predict_op = tf.argmax(outout_layer, 1)
 
-
-#---------
 class Ai_cnn:
     def __init__(self, type):
         self.myType = type
@@ -106,21 +91,20 @@ class Ai_cnn:
             print("Model is loaded")
             
     def trainModel(self, Ai):
-        omok = Omok(15)
+        omok = Omok.Omok(15)
         countWin = 0
         for i in xrange(100):
             omok.reset()
             err = 0
-            overGame = false
-            
-        
-            
+            overGame = False
+             
     def Put(self, sess, omok):
+        state = omok.getState()
         q = sess.run(output_layer, feed_dict = {X: state, dropoutRate:0.8, dropoutHiddonRate:0.5})
         while(True):
             action = q.argmax()
             if (state[action] == NONE):
-                return action #액션을리턴하는게아니라직접놓아야함
+                return action #깃허브 연습
             else:
                 q[0, action] = -99999
         nextState = omok.getState()
