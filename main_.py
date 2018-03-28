@@ -11,6 +11,7 @@ BLACK = 1
 WHITE = 2
 
 def main():
+    print(int(15 / 2 / 2))
     omok = Omok(LENGTH)
     ai1 = Ai_random(omok, LENGTH, WHITE)
     ai2 = Ai_cnn(BLACK)
