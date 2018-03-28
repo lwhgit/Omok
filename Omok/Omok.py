@@ -1,5 +1,5 @@
-from OmokBoard import *
-from BoardViewer import *
+from .OmokBoard import *
+from .BoardViewer import *
 import threading
 
 class Omok:
@@ -49,7 +49,8 @@ class Omok:
             
     def reset(self):
         self.omokBoard.reset()
-        self.boardViewer.reset()
+        if self.boardViewer != None:
+            self.boardViewer.reset()
         
     def get3DArray(self):
         return self.omokBoard.get3DArray()

@@ -3,8 +3,7 @@ import os
 import random
 import math
 import numpy as np
-import Omok
-import Ai_random
+from .Ai_random import *
 
 #AVX 경고 무시
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -91,8 +90,8 @@ class Ai_cnn:
     def getActionRandom(self, omok):
         while(True):
             action = random.randrange(0, nAction)
-            x = action % omok.length
-            y = action / omok.length
+            x = int(action % omok.length)
+            y = int(action / omok.length)
             if (omok.isPossable(x, y, self.myType)):
                 return action
 
@@ -101,15 +100,14 @@ class Ai_cnn:
         q = sess.run(output_layer, feed_dict = {X: state, dropoutRate:0.8, dropoutHiddonRate:0.5})
         while(True):
             action = q.argmax()
-            x = action % omok.length
-            y = action / omok.length
+            x = int(action % omok.length)
+            y = int(action / omok.length)
             if (omok.isPossable(x, y, self.myType)):
                 return action
             else:
                 q[0, action] = -99999
 
-    def trainModel(self, Ai):
-        omok = Omok.Omok(15)
+    def trainModel(self, Ai, omok):
         sess = tf.Session()
         sess.run(tf.global_variables_initializer())
         
@@ -131,6 +129,7 @@ class Ai_cnn:
                 gameOver = False
                 while(gameOver != True):
                     action = -9999
+                    reward = 0
                     currentState = omok.getMap()
 
                     if(random.uniform(0, 1.0) <= epsilon):
@@ -141,8 +140,8 @@ class Ai_cnn:
                     if (epsilon > epsilonMinimumValue):
                         epsilon *= epsilonDiscount
                     
-                    x = action % omok.length
-                    y = action / omok.length
+                    x = int(action % omok.length)
+                    y = int(action / omok.length)
 
                     result = omok.putStone(x, y, self.myType)
                     nextState = omok.getMap()
@@ -183,9 +182,11 @@ class replayMemory:
         self.nState = gridSize * gridSize
         self.discount = discount
 
-        self.inputState = np.empty((self.maxMemory, self.nState))
+        #self.inputState = np.empty((self.maxMemory, self.nState))
+        self.inputState = [[0] * 15 for i in range(15)]
         self.actions = np.zeros(self.maxMemory)
-        self.nextState = np.empty((self.maxMemory, self.nState))
+        #self.nextState = np.empty((self.maxMemory, self.nState))
+        self.nextState = [[0] * 15 for i in range(15)]
         self.gameOver = np.empty((self.maxMemory), dtype = np.bool)
         self.rewards =np.empty((self.maxMemory))
         self.count = 0
@@ -194,8 +195,8 @@ class replayMemory:
     def remember(self, currentState, action, reward, nextState, gameOver):
         self.actions[self.current] = action
         self.rewards[self.current] = reward
-        self.inputState[self.current, ...] = currentState
-        self.nextState[self.current, ...] = nextState
+        self.inputState[self.current] = currentState
+        self.nextState[self.current] = nextState
         self.gameOver[self.current] = gameOver
         self.count = max(self.count, self.current + 1)
         self.current = (self.current + 1) % self.maxMemory
@@ -205,7 +206,7 @@ class replayMemory:
         chosenBatchSize = min(batchSize, memoryLength)
 
         inputs = np.zeros((chosenBatchSize, nState))
-        targets = np.zeros((channelFilter1, nameFile))
+        targets = np.zeros((channelFilter1, nAction))
 
         for i in range(0, chosenBatchSize):
             randomIndex = random.randrange(0, memoryLength)
