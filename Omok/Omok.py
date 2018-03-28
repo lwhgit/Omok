@@ -1,47 +1,45 @@
-from .OmokBoard import *
-from .BoardViewer import *
-import threading
+from .BoardViewer import BoardViewer
+from .OmokBoard import OmokBoard
 
 class Omok:
-    size = 0
-    length = 0
-    omokBoard = None
-    boardViewer = None
-
-    def __init__(self, length = 15, size = 40):
-        self.size = size
-        self.length = length
-        self.initOmokBoard()
-        if size != -1:
-            self.initBoardViewer()
+    __length = 0
+    __size = 0
+    __boardViewer = None
+    __omokBoard = None
+    
+    def __init__(self, length = 15, size = -1):
+        self.__length = length
+        self.__size = size
+        if self.__size != -1:
+            self.__initBoardViewer()
+        self.__initOmokBoard()
         
-    def __thread(self):
-        self.boardViewer = BoardViewer(self.size, self.length)
-        self.boardViewer.show()
-
-    def initOmokBoard(self):
-        threading.Thread(target = self.__thread).start()
+    def __initBoardViewer(self):
+        self.__boardViewer = BoardViewer(self.__length, self.__size)
         
-    def initBoardViewer(self):
-        self.omokBoard = OmokBoard(self.length)
-        while True:
-            if self.boardViewer != None:
-                break
-        self.omokBoard.setViewer(self.boardViewer)
+    def __initOmokBoard(self):
+        self.__omokBoard = OmokBoard(self.__length)
         
     def putStone(self, x, y, type):
-        return self.omokBoard.putStone(x, y, type)
+        if self.isPossable(x, y, type):
+            self.__boardViewer.putStone(x + 1, y + 1, type)
+            return self.__omokBoard.putStone(x, y, type)
+        else:
+            return -1
         
     def isPossable(self, x, y, type):
-        return not (self.omokBoard.isImpossable(x, y, type))
+        return not (self.__omokBoard.isImpossable(x, y, type))
         
     def getMap(self):
-        return self.omokBoard.map
+        return self.__omokBoard.map
         
     def showMap(self):
-        self.omokBoard.showMap()
+        self.__omokBoard.showMap()
         
-    def setEvent(self, eventName, callback):
-        if self.boardViewer != None:
-            self.boardViewer.setEvent(eventName, callback)
+    def reset(self):
+        self.__omokBoard.reset()
+        if self.__boardViewer != None:
+            self.__boardViewer.reset()
         
+    def get3DArray(self):
+        return self.__omokBoard.get3DArray()
