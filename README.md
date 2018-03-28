@@ -1,6 +1,6 @@
 # Omok   
 
-    from Omok.Omok import Omok
+    from Omok.Omok import Omok
     
     omok = Omok(length, size) # 그래픽 있음 
        
