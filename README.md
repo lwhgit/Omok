@@ -10,4 +10,5 @@
 ## Omok property
 
 |func                               |return     |description                                |   
-|putStone(int x, int y, int type)   |int        |Put stone, returning integer. -1, 0, 1, 2|
+|-----------------------------------|-----------|-------------------------------------------|
+|putStone(int x, int y, int type)   |int        |Put stone, returning integer. -1, 0, 1, 2  |
