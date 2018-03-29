@@ -31,7 +31,7 @@ class Omok:
         return not (self.__omokBoard.isImpossable(x, y, type))
         
     def getMap(self):
-        return self.__omokBoard.map
+        return self.__omokBoard.getMap()
         
     def showMap(self):
         self.__omokBoard.showMap()

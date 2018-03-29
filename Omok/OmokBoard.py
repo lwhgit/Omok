@@ -1,6 +1,6 @@
 class OmokBoard:
     __length = 0
-    map = None
+    __map = None
     
     def __init__(self, length):
         self.__length = length
@@ -107,6 +107,9 @@ class OmokBoard:
                 s += str("{0:>4d}".format(self.__map[x][y]))
             s += "\n"
         print(s)
+        
+    def getMap(self):
+        return self.__map
         
     def reset(self):
         self.__map = [[0] * self.__length for i in range(self.__length)]
