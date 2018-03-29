@@ -34,9 +34,10 @@ class OmokBoard:
                     acount = self.__getCount(x, y, dx[axis], dy[axis], type)
                     rcount = self.__getCount(x, y, dx[rotation], dy[rotation], type)
                     
+                    
                     if ((acount == (2, 0) and rcount == (3, 0)) or
                         (acount == (3, 0) and rcount == (2, 0)) or
-                        (acount == (3, 0) and rcount == (3, 0))):
+                        (acount == (2, 0) and rcount == (2, 0))):
                         return True
                         
         return False

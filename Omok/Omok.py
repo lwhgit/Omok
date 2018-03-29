@@ -12,6 +12,8 @@ class Omok:
         self.__size = size
         if self.__size != -1:
             self.__initBoardViewer()
+            self.__boardViewer.bind("<Button-1>", self.__putBlack)
+            self.__boardViewer.bind("<Button-3>", self.__putWhite)
         self.__initOmokBoard()
         
     def __initBoardViewer(self):
@@ -20,9 +22,16 @@ class Omok:
     def __initOmokBoard(self):
         self.__omokBoard = OmokBoard(self.__length)
         
+    def __putBlack(self, event):
+        print(self.putStone(int(event.x / self.__size - 0.5), int(event.y / self.__size - 0.5), 1))
+        
+    def __putWhite(self, event):
+        print(self.putStone(int(event.x / self.__size - 0.5), int(event.y / self.__size - 0.5), 2))
+        
     def putStone(self, x, y, type):
         if self.isPossable(x, y, type):
-            self.__boardViewer.putStone(x + 1, y + 1, type)
+            if self.__boardViewer != None:
+                self.__boardViewer.putStone(x + 1, y + 1, type)
             return self.__omokBoard.putStone(x, y, type)
         else:
             return -1

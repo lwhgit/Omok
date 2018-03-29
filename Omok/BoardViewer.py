@@ -68,9 +68,14 @@ class BoardViewer:
         self.__root.quit()
         threading.Event().set()
         
+    def reset(self):
+        self.__initBoard()
+        
     def putStone(self, x, y, type):
         if type == 1:
             self.__canvas.create_oval(self.__size * x - self.__size / 2,  self.__size * y - self.__size / 2,  self.__size * x + self.__size / 2,  self.__size * y + self.__size / 2,  fill = "black")
         elif type == 2:
             self.__canvas.create_oval(self.__size * x - self.__size / 2,  self.__size * y - self.__size / 2,  self.__size * x + self.__size / 2,  self.__size * y + self.__size / 2,  fill = "white")
             
+    def bind(self, eventName, func):
+        self.__canvas.bind(eventName, func)
