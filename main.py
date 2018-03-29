@@ -5,6 +5,11 @@ def main():
     omok = Omok(15, 30)
     
     while True:
-        eval(input())
+        print("a")
+        print(omok.userInput())
+        time.sleep(3)
+    
+    '''while True:
+        eval(input())'''
     
 main()
