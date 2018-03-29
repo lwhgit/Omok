@@ -6,12 +6,12 @@ def main():
     omok = Omok(15, 30)
     #omok.showinfo("asd", "asdasd")
     
-    while True:
+    '''while True:
         print("Your turn")
         print(omok.userInput(2))
-        time.sleep(1)
+        time.sleep(1)'''
     
-    '''while True:
-        eval(input())'''
+    while True:
+        eval(input())
     
 main()

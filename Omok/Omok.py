@@ -72,3 +72,6 @@ class Omok:
         
     def showinfo(self, title, context):
         self.__boardViewer.showinfo(title, context)
+        
+    def showWindow(self):
+        self.__boardViewer.showWindow()

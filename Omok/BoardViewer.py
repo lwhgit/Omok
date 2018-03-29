@@ -27,9 +27,10 @@ class BoardViewer:
     def __initWindow(self):
         self.__root = Tk()
         self.__root.title("Omok")
-        self.__root.geometry(str(self.__size * (self.__length + 1)) + "x" + str(self.__size * (self.__length + 1)))
+        self.__root.geometry(str((self.__size * (self.__length + 1)) + 150) + "x" + str(self.__size * (self.__length + 1)))
         self.__root.resizable(0, 0)
         self.__initBoard()
+        self.__initWidget()
         self.__root.protocol("WM_DELETE_WINDOW", self.__wmDelWin)
         self.__root.mainloop()
     
@@ -61,13 +62,25 @@ class BoardViewer:
                         self.__canvas.create_oval(self.__size * (self.__length / 2 + 0.5) - dotSize,  self.__size * (self.__length - 3) - dotSize,  self.__size * (self.__length / 2 + 0.5) + dotSize,  self.__size * (self.__length - 3) + dotSize,  fill = "black")
                         self.__canvas.create_oval(self.__size * (self.__length - 3) - dotSize,  self.__size * (self.__length / 2 + 0.5) - dotSize,  self.__size * (self.__length - 3) + dotSize,  self.__size * (self.__length / 2 + 0.5) + dotSize,  fill = "black")
                         
-            self.__canvas.pack()
+            self.__canvas.pack(side = "left")
         except:
             pass
         
+    def __initWidget(self):
+        hideBtn = Button(self.__root, text = "HIDE", command = self.__hideWindow)
+        hideBtn.config(width = 15, height = 5)
+        #hideBtn.place(x = self.__size * (self.__length + 1), y = 0)
+        hideBtn.pack()
+    
     def __wmDelWin(self):
         self.__root.quit()
         threading.Event().set()
+        
+    def __hideWindow(self):
+        self.__root.withdraw()
+        
+    def showWindow(self):
+        self.__root.deiconify()
         
     def reset(self):
         self.__initBoard()
