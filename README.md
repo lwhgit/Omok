@@ -4,4 +4,3 @@
     
     omok = Omok(LENGTH, SIZE)
     
-
