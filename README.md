@@ -5,6 +5,11 @@
     
     omok = Omok(LENGTH, SIZE)
 
+or
+
+    from Omok.Omok import Omok
+    
+    omok = Omok(LENGTH)
 ---
 
 ## Omok property
