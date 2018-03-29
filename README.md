@@ -2,7 +2,7 @@
 
     from Omok.Omok import Omok
     
-    omok = Omok(LENGTH, SIZE) # 그래픽 있음
+    omok = Omok(LENGTH, SIZE)
     
 
 또는
