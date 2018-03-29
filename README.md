@@ -5,6 +5,8 @@
     omok = Omok(LENGTH, SIZE)
     
 
+
+
 또는
 
     from Omok.Omok import Omok
