@@ -21,4 +21,4 @@ or
 |getMap()                           |int[][]    |Return 2d array.                               |
 |reset()                            |void       |Reset map.                                     |
 |get3DArray()                       |int[][][]  |Return 3d array.                               |
-|userInput()                        |int        |Receive users input and return result          |
+|userInput(int type)                        |int        |Receive users input and return result          |
