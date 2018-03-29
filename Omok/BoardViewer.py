@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import threading
 
 class BoardViewer:
@@ -79,3 +80,6 @@ class BoardViewer:
             
     def bind(self, eventName, func):
         self.__canvas.bind(eventName, func)
+        
+    def showinfo(self, title, context):
+        messagebox.showinfo(title, context)

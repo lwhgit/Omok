@@ -7,14 +7,16 @@ class Omok:
     __boardViewer = None
     __omokBoard = None
     __clickState = -3
+    __clickType = 0
     
     def __init__(self, length = 15, size = -1):
         self.__length = length
         self.__size = size
         if self.__size != -1:
             self.__initBoardViewer()
-            self.__boardViewer.bind("<Button-1>", self.__putBlack)
-            self.__boardViewer.bind("<Button-3>", self.__putWhite)
+            self.__boardViewer.bind("<Button-1>", self.__put)
+            #self.__boardViewer.bind("<Button-1>", self.__putBlack)
+            #self.__boardViewer.bind("<Button-3>", self.__putWhite)
         self.__initOmokBoard()
         
     def __initBoardViewer(self):
@@ -30,6 +32,10 @@ class Omok:
     def __putWhite(self, event):
         if self.__clickState == -2:
             self.__clickState = self.putStone(int(event.x / self.__size - 0.5), int(event.y / self.__size - 0.5), 2)
+            
+    def __put(self, event):
+        if self.__clickState == -2:
+            self.__clickState = self.putStone(int(event.x / self.__size - 0.5), int(event.y / self.__size - 0.5), self.__clickType)
         
     def putStone(self, x, y, type):
         if self.isPossable(x, y, type):
@@ -56,9 +62,13 @@ class Omok:
     def get3DArray(self):
         return self.__omokBoard.get3DArray()
         
-    def userInput(self):
+    def userInput(self, type):
         self.__clickState = -2
+        self.__clickType = type
         while True:
             if self.__clickState != -2:
                 break
         return self.__clickState
+        
+    def showinfo(self, title, context):
+        self.__boardViewer.showinfo(title, context)
