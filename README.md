@@ -4,6 +4,7 @@
     
     omok = Omok(LENGTH, SIZE)
     
+
 ---
 
     from Omok.Omok import Omok
