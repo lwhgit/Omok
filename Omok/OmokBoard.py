@@ -1,43 +1,42 @@
 class OmokBoard:
-    length = 0
-    map = None
-    viewer = None
+    __length = 0
+    __map = None
     
-    def __init__(self, length = 15):
-        self.length = length
-        self.map = [[0] * length for i in range(length)]
+    def __init__(self, length):
+        self.__length = length
+        self.__map = [[0] * self.__length for i in range(self.__length)]
         
     def putStone(self, x, y, type):
         if self.isImpossable(x, y, type):
             return -1
         
-        self.map[x][y] = type
-        if self.viewer != None:
-            self.viewer.putStone(x + 1, y + 1, type)
+        self.__map[x][y] = type
+        
         if self.__check(x, y, type):
             return type
+            
         return 0
         
     def isImpossable(self, x, y, type):
         dx = [0, 1, 1, 1];
         dy = [1, 1, 0, -1];
         
-        if (x < 0) or (x >= self.length) or (y < 0) or (y >= self.length) or self.map[x][y] != 0:
+        if (x < 0) or (x >= self.__length) or (y < 0) or (y >= self.__length) or self.__map[x][y] != 0:
             return True
         
         if type == 1:
             for axis in range(4):
-                for rotation in range(axis + 1, axis + 3):
-                        
+                for rotation in range(axis + 1, axis + 4):
                     if rotation > 3:
-                        rotation -= 3
+                        rotation -= 4
                         
                     acount = self.__getCount(x, y, dx[axis], dy[axis], type)
                     rcount = self.__getCount(x, y, dx[rotation], dy[rotation], type)
                     
+                    #print(acount, rcount, dx[axis], dy[axis], dx[rotation], dy[rotation])
                     if ((acount == (2, 0) and rcount == (3, 0)) or
                         (acount == (3, 0) and rcount == (2, 0)) or
-                        (acount == (3, 0) and rcount == (3, 0))):
+                        (acount == (2, 0) and rcount == (2, 0))):
                         return True
                         
         return False
@@ -61,8 +60,8 @@ class OmokBoard:
             tx = x + dx * i
             ty = y + dy * i
             
-            if 0 <= tx and tx < self.length and 0 <= ty and ty < self.length:
-                if self.map[tx][ty] == type:
+            if 0 <= tx and tx < self.__length and 0 <= ty and ty < self.__length:
+                if self.__map[tx][ty] == type:
                     count += 1
                 else:
                     break
@@ -71,10 +70,11 @@ class OmokBoard:
         
         tx += dx
         ty += dy
-        if 0 <= tx and tx < self.length and 0 <= ty and ty < self.length:
-            side1 = self.map[tx][ty]
+        if 0 <= tx and tx < self.__length and 0 <= ty and ty < self.__length:
+            if self.__map[tx][ty] != 0:
+                side1 = 1
         else:
-            side1 = 0
+            side1 = 1
             
         i = 0
         
@@ -84,8 +84,8 @@ class OmokBoard:
             tx = x - dx * i
             ty = y - dy * i
             
-            if 0 <= tx and tx < self.length and 0 <= ty and ty < self.length:
-                if self.map[tx][ty] == type:
+            if 0 <= tx and tx < self.__length and 0 <= ty and ty < self.__length:
+                if self.__map[tx][ty] == type:
                     count += 1
                 else:
                     break
@@ -94,20 +94,44 @@ class OmokBoard:
         
         tx -= dx
         ty -= dy
-        if 0 <= tx and tx < self.length and 0 <= ty and ty < self.length:
-            side2 = self.map[tx][ty]
+        if 0 <= tx and tx < self.__length and 0 <= ty and ty < self.__length:
+            if self.__map[tx][ty] != 0:
+                side2 = 1
         else:
-            side2 = 0
+            side2 = 1
                 
         return (count, side1 + side2)
                     
-    def setViewer(self, viewer):
-        self.viewer = viewer
-        
     def showMap(self):
         s = ""
-        for y in range(0, self.length):
-            for x in range(0, self.length):
-                s += str("{0:>4d}".format(self.map[x][y]))
+        for y in range(0, self.__length):
+            for x in range(0, self.__length):
+                s += str("{0:>4d}".format(self.__map[x][y]))
             s += "\n"
         print(s)
+        
+    def getMap(self):
+        return self.__map
+        
+    def reset(self):
+        self.__map = [[0] * self.__length for i in range(self.__length)]
+        
+    def get3DArray(self):
+        arr = [[[0] * self.__length for i in range(self.__length)] for j in range(3)]
+        for i in range(3):
+            for x in range(self.__length):
+                for y in range(self.__length):
+                    arr[i][x][y] = int(self.__map[x][y] == i)
+        return arr
+        
+    def getAroundCount(self, x, y, type):
+        count = 0
+        for tx in range(x - 2, x + 3):
+            for ty in range(y - 2, y + 3):
+                if 0 <= tx and tx < self.__length and 0 <= ty and ty < self.__length:
+                    if self.__map[tx][ty] == type:
+                        count += 1
+                
+                    
+        return count
+        
