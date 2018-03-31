@@ -86,9 +86,9 @@ class BoardViewer:
         self.__initBoard()
         
     def putStone(self, x, y, type):
-        if type == 1:
+        if type == 1000:
             self.__canvas.create_oval(self.__size * x - self.__size / 2,  self.__size * y - self.__size / 2,  self.__size * x + self.__size / 2,  self.__size * y + self.__size / 2,  fill = "black")
-        elif type == 2:
+        elif type == 2000:
             self.__canvas.create_oval(self.__size * x - self.__size / 2,  self.__size * y - self.__size / 2,  self.__size * x + self.__size / 2,  self.__size * y + self.__size / 2,  fill = "white")
             
     def bind(self, eventName, func):

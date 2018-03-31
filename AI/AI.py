@@ -23,14 +23,9 @@ learningRate = 0.01  # 학습 정도
 fileName = "/fileDeep.ckpt"  # Model을 저장할 파일 이름
 batchSize = 64  # mini batch할 정도
 NONE = 0
-BLACK = 1
-WHITE = 2
-ERROR = -1
-output_layer = None
-X = None
-Y = None
-cost = None
-optimizer = None
+BLACK = 1000
+WHITE = 2000
+ERROR = -1000
 DropoutRate = tf.placeholder(tf.float32)
 DropoutHiddenRate = tf.placeholder(tf.float32)
 
@@ -103,9 +98,11 @@ class OmokDQN:
 
     def getAction_DQN(self, sess):
         state = self.getState(BLACK, 0)
-        q = sess.run(output_layer, feed_dict = {X: state, DropoutRate:self.dropoutRate, DropoutHiddenRate:self.dropoutHiddenRate})
+        print(state)
+        q = sess.run(output_layer, feed_dict = {X: state, DropoutRate:1, DropoutHiddenRate:1})
         while(True):
             action = q.argmax()
+            print(q)
             x = int(action % self.gridSize)
             y = int(action / self.gridSize)
             if (self.omok.isPossable(x, y, self.type)):
@@ -285,6 +282,7 @@ class OmokDQN:
                     if (result == WHITE):
                         gameOver = True
                         print("백(인공지능)이 승리했습니다.       놓아진 바둑돌의 수 : ", str(interaction))
+                        winCount += 1
                         reward = self.winReward
 
                     if (interaction >= self.gridSize * self.gridSize):
@@ -312,7 +310,7 @@ class OmokDQN:
         while(True):
             while(True):
                 result = self.omok.userInput(BLACK)
-                if(result != -1): break
+                if(result != -1000): break
             if (result == BLACK):
                 print("당신은 승리했다")
                 return

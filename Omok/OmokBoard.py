@@ -8,7 +8,7 @@ class OmokBoard:
         
     def putStone(self, x, y, type):
         if self.isImpossable(x, y, type):
-            return -1
+            return -1000
         
         self.__map[x][y] = type
         
@@ -24,7 +24,7 @@ class OmokBoard:
         if (x < 0) or (x >= self.__length) or (y < 0) or (y >= self.__length) or self.__map[x][y] != 0:
             return True
         
-        if type == 1:
+        if type == 1000:
             for axis in range(4):
                 for rotation in range(axis + 1, axis + 4):
                     if rotation > 3:
@@ -101,6 +101,14 @@ class OmokBoard:
             side2 = 1
                 
         return (count, side1 + side2)
+                    
+    def showMap(self):
+        s = ""
+        for y in range(0, self.__length):
+            for x in range(0, self.__length):
+                s += str("{0:>4d}".format(self.__map[x][y]))
+            s += "\n"
+        print(s)
         
     def getMap(self):
         return self.__map
@@ -127,54 +135,3 @@ class OmokBoard:
                     
         return count
         
-    def getShape(self, x, y, type, arr = -1):
-    
-        if arr == -1:
-            arr = [[0] * self.__length for i in range(self.__length)]
-            if self.__map[x][y] == 0:
-                return [[0]]
-            
-        if 0 <= x and x < self.__length and 0 <= y and y < self.__length:
-            if self.__map[x][y] == type and arr[x][y] == 0:
-                arr[x][y] = 1
-                self.getShape(x + 1, y, type, arr)
-                self.getShape(x - 1, y, type, arr)
-                self.getShape(x, y + 1, type, arr)
-                self.getShape(x, y - 1, type, arr)
-                self.getShape(x + 1, y + 1, type, arr)
-                self.getShape(x + 1, y - 1, type, arr)
-                self.getShape(x - 1, y + 1, type, arr)
-                self.getShape(x - 1, y - 1, type, arr)
-            
-            
-        startX = -1
-        startY = -1
-        endX = 15
-        endY = 15
-        
-        for x in range(0, self.__length):
-            if arr[x].count(1) != 0 and startX == -1:
-                startX = x
-            elif arr[x].count(1) == 0 and startX != -1:
-                endX = x
-                break
-                
-        for y in range(0, self.__length):
-            count = 0
-            for x in range(0, self.__length):
-                if arr[x][y] == 1:
-                    count += 1
-                    
-            if count != 0 and startY == -1:
-                startY = y
-            elif count == 0 and startY != -1:
-                endY = y
-                break
-                
-        resArr = [[0] * (endY - startY) for i in range(endX - startX)]
-        
-        for x in range(startX, endX):
-            for y in range(startY, endY):
-                resArr[x - startX][y - startY] = arr[x][y]
-                
-        return resArr

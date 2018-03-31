@@ -7,8 +7,8 @@ from tkinter import messagebox
 SIZE = 40
 LENGTH = 15
 
-BLACK = 1
-WHITE = 2
+BLACK = 1000
+WHITE = 2000
 
 def main():
 
@@ -24,7 +24,7 @@ def main():
 
     config = {
         'board' : omok,
-        'epsilonStart' : 1,
+        'epsilonStart' : 0,
         'epsilonDiscount' : 0.999,
         'epsilonMinimumValue' : 0.1,
         'learningRate' : 0.01,
