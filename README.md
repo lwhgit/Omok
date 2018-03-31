@@ -12,7 +12,7 @@ or
     omok = Omok(LENGTH)
 ---
 
-## Omok property
+## Omok.Omok property
 
 |func                               |return     |description                                    |
 |-----------------------------------|-----------|-----------------------------------------------|
@@ -22,4 +22,9 @@ or
 |reset()                            |void       |Reset map.                                     |
 |get3DArray()                       |int[][][]  |Return 3d array.                               |
 |userInput(int type)                |int        |Receive users input and return result          |
-|getShape(int x, int y, int type)   |int[][]    |Return shape                                   |
+|getShape(int x, int y, int type)   |int[][]    |Return shape.                                  |
+   
+## Util.DataShower property
+|func                               |return     |description                                    |
+|-----------------------------------|-----------|-----------------------------------------------|
+|showArray(int[][] arr)             |void       |Show array.                                    |
