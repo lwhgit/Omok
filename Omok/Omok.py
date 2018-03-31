@@ -36,6 +36,9 @@ class Omok:
     def __put(self, event):
         if self.__clickState == -2:
             self.__clickState = self.putStone(int(event.x / self.__size - 0.5), int(event.y / self.__size - 0.5), self.__clickType)
+            
+            #if self.__clickState != -1:
+            #    DataShower.showArray(self.__omokBoard.getShape(int(event.x / self.__size - 0.5), int(event.y / self.__size - 0.5), self.__clickType))
         
     def putStone(self, x, y, type):
         if self.isPossable(x, y, type):
@@ -78,3 +81,6 @@ class Omok:
         
     def getAroundCount(self, x, y, type):
         return self.__omokBoard.getAroundCount(x, y, type)
+        
+    def getShape(self, x, y, type):
+        return self.__omokBoard.getShape(x, y, type)
