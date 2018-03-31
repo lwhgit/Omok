@@ -101,14 +101,6 @@ class OmokBoard:
             side2 = 1
                 
         return (count, side1 + side2)
-                    
-    def showMap(self):
-        s = ""
-        for y in range(0, self.__length):
-            for x in range(0, self.__length):
-                s += str("{0:>4d}".format(self.__map[x][y]))
-            s += "\n"
-        print(s)
         
     def getMap(self):
         return self.__map
